@@ -18,7 +18,8 @@ const BoardSchema = mongoose.Schema({
     },
     lastAction: {
         type: String,
-        require: true
+        require: true,
+        default: "No action recorded"
     },
     date: {
         type: Date,
