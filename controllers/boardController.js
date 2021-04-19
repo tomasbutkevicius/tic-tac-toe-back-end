@@ -4,8 +4,6 @@ exports.addBoard = async (req, res) => {
 
     const { squares, xIsNext, winner, lastAction } = req.body;
 
-    console.log(squares);
-
     if (squares !== undefined && xIsNext !== undefined && winner !== undefined && lastAction !== undefined) {
         const board = new Board({
             squares: req.body.squares,
