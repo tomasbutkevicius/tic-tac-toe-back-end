@@ -1,4 +1,4 @@
-const Board = require('../persistence/models/Board');
+const Board = require('../db/models/Board');
 
 exports.addBoard = async (req, res) => {
 

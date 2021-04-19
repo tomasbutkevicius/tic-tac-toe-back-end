@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Board = require("../persistence/models/Board");
+const Board = require("../db/models/Board");
 const boardController = require("../controllers/boardController");
 
 router.get("/", async (req, res) => {
