@@ -44,6 +44,20 @@ describe('POST /boards', () => {
             expect(body).to.contain.property('lastAction');
             done();
         })
-        .catch((err) => done(err));
+            .catch((err) => done(err));
+    });
+
+    it('Fail, a new board requires input squares', (done) => {
+        request(app).post('/boards').send({
+            xIsNext: false,
+            winner: null,
+            lastAction: "X to position #6"
+        }).then((res) => {
+            console.log(res.body);
+            const body = res.body;
+            expect(body.message).to.equal("Invalid request body field names");
+            done();
+        })
+            .catch((err) => done(err));
     })
 });
