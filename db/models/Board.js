@@ -4,7 +4,7 @@ const BoardSchema = mongoose.Schema({
     squares: [{
         type: String,
         require: true,
-        default: [null, null, null, null, null, null, null, null, null]
+        default: null
     },],
     xIsNext: {
         type: Boolean,
