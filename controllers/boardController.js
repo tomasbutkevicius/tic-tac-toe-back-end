@@ -22,13 +22,3 @@ exports.addBoard = async (req, res) => {
         res.json({ message: "Invalid request body field names" });
     }
 }
-
-exports.addCleanBoard = async (req, res) => {
-    const board = new Board();
-    try {
-        const savedBoard = await board.save();
-        res.json(savedBoard);
-    } catch (err) {
-        res.json({ message: err });
-    }
-}

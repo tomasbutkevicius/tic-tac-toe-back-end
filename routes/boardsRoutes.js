@@ -21,10 +21,6 @@ router.get("/latest", async (req, res) => {
     }
 });
 
-router.post("/new", async (req, res) => {
-    await boardController.addCleanBoard(req, res);
-});
-
 router.post("/", async (req, res) => {
     await boardController.addBoard(req, res);
 });
