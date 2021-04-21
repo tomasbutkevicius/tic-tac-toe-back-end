@@ -8,10 +8,16 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-      - DB_CONNECTION=$DB_CONNECTION
+      - DB_LOCAL=true
       - SECRET=$SECRET
     ports:
       - "3000:3000"
     volumes:
         - .:/usr/src/app
         - /usr/src/app/node_modules
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
