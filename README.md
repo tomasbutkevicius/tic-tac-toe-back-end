@@ -18,20 +18,20 @@ docker-compose up --build -d
 Go to the url: http://localhost:3000/boards to get history of boards.
 
 Endpoints:
-  GET    /boards
-  POST   /boards
-  DELETE /boards
-  GET    /latest
+  - GET    /boards
+  - POST   /boards
+  - DELETE /boards
+  - GET    /latest
 
 ## Useful links 
 - For docker setup 
-  (Mac)     https://docs.docker.com/docker-for-mac/install/
-  (Windows) https://docs.docker.com/docker-for-windows/install/
+  - (Mac)     https://docs.docker.com/docker-for-mac/install/
+  - (Windows) https://docs.docker.com/docker-for-windows/install/
   
 ##Other
 - Run tests
-           npm test
+           - npm test
 - Run program locally without docker
-           create environment variable DB_CONNECTION for Mongo database
-           npm install
-           npm start
+           - create environment variable DB_CONNECTION for Mongo database
+           - npm install
+           - npm start
