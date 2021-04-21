@@ -30,8 +30,14 @@ Endpoints:
   
 ## Other
 - Run tests
-           - npm test
+    ```bash
+    npm test
+    ```
 - Run program locally without docker
-           - create environment variable DB_CONNECTION for Mongo database
-           - npm install
-           - npm start
+   - create environment variable DB_CONNECTION for Mongo database
+    ```bash
+    npm install
+    ```
+    ```bash
+    npm start
+    ```
