@@ -36,7 +36,7 @@ router.delete("/", async (req, res) => {
     }
     try {
         await Board.deleteMany();
-        res.send("Game data is deleted");
+        res.json({ message: "Game data is deleted" });
     } catch (err) {
         res.json({ message: err });
     }
