@@ -9,6 +9,7 @@ services:
     env_file: .env
     environment:
       - DB_CONNECTION=$DB_CONNECTION
+      - SECRET=$SECRET
     ports:
       - "3000:3000"
     volumes:
