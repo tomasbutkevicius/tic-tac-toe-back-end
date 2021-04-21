@@ -1,5 +1,23 @@
 const Board = require('../db/models/Board');
 
+exports.getAllBoards = async (req, res) => {
+    try {
+        const boards = await Board.find();
+        res.json(boards);
+    } catch (err) {
+        res.json({ message: err });
+    }
+}
+
+exports.getLatestBoard = async (req, res) => {
+    try {
+        const boards = await Board.find().sort({ _id: -1 }).limit(1);
+        res.json(boards[0]);
+    } catch (err) {
+        res.json({ message: err });
+    }
+}
+
 exports.addBoard = async (req, res) => {
 
     const { squares, xIsNext, winner, lastAction } = req.body;
@@ -20,5 +38,22 @@ exports.addBoard = async (req, res) => {
         }
     } else {
         res.json({ message: "Invalid request body field names" });
+    }
+}
+
+exports.deleteAllBoards = async (req, res) => {
+    if (!req.header("secret")) {
+        res.statusCode = 403;
+        return res.json({ message: "header {secret: value} required" });
+    }
+    if (req.header("secret") !== process.env.SECRET) {
+        res.statusCode = 403;
+        return res.json({ message: "Invalid secret" });
+    }
+    try {
+        await Board.deleteMany();
+        res.json({ message: "Game data is deleted" });
+    } catch (err) {
+        res.json({ message: err });
     }
 }

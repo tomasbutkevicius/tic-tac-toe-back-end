@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 function connect() {
     return new Promise((resolve, reject) => {
         let databaseUrl = process.env.DB_CONNECTION;
-        if(process.env.DB_LOCAL === 'true'){
+        if (process.env.DB_LOCAL === 'true') {
             databaseUrl = "mongodb://mongo:27017/docker-node-mongo";
         }
         if (process.env.NODE_ENV === 'test') {
@@ -19,7 +19,7 @@ function connect() {
     });
 };
 
-function mongooseConnect(url, resolve, reject){
+function mongooseConnect(url, resolve, reject) {
     mongoose.connect(
         url,
         {
