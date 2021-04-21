@@ -1,0 +1,16 @@
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tic-tac-toe
+    container_name: tic-tac-toe-backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DB_CONNECTION=$DB_CONNECTION
+    ports:
+      - "3000:3000"
+    volumes:
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
