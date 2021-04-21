@@ -28,7 +28,7 @@ Endpoints:
   - (Mac)     https://docs.docker.com/docker-for-mac/install/
   - (Windows) https://docs.docker.com/docker-for-windows/install/
   
-##Other
+## Other
 - Run tests
            - npm test
 - Run program locally without docker
