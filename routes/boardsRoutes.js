@@ -26,6 +26,14 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
+    if(!req.header("secret")){
+        res.statusCode = 403;
+        return res.json({message: "header {secret: value} required"});
+    }
+    if(req.header("secret") !== process.env.SECRET){
+        res.statusCode = 403;
+        return res.json({message: "Invalid secret"}); 
+    }
     try {
         await Board.deleteMany();
         res.send("Game data is deleted");
