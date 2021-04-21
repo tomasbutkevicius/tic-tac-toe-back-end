@@ -42,15 +42,7 @@ exports.addBoard = async (req, res) => {
 }
 
 exports.deleteAllBoards = async (req, res) => {
-    if (!req.header("secret")) {
-        res.statusCode = 403;
-        return res.json({ message: "header {secret: value} required" });
-    }
-    if (req.header("secret") !== process.env.SECRET) {
-        res.statusCode = 403;
-        return res.json({ message: "Invalid secret" });
-    }
-    try {
+    try{
         await Board.deleteMany();
         res.json({ message: "Game data is deleted" });
     } catch (err) {
