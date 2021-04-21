@@ -9,7 +9,6 @@ services:
     env_file: .env
     environment:
       - DB_LOCAL=true
-      - SECRET=$SECRET
     ports:
       - "3000:3000"
     volumes:
