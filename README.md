@@ -21,7 +21,7 @@ Endpoints:
   - GET    /boards
   - POST   /boards
   - DELETE /boards
-  - GET    boards/latest
+  - GET    /boards/latest
 
 ## Useful links 
 - For docker setup 
