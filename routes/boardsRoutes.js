@@ -10,4 +10,6 @@ router.post("/", boardController.addBoard);
 
 router.delete("/", boardController.deleteAllBoards);
 
+router.get("/winner", boardController.getWinner);
+
 module.exports = router;
