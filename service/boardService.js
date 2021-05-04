@@ -101,11 +101,3 @@ function getWinnerFromBoard(board) {
     }
     return null;
 }
-
-
-//Logs for
-// error
-// warn
-// info
-// verbose (detailed info, every event (detail debug > detail verbose))
-// debug (detailed info, stack traces, input, output, special messsages for devs)
