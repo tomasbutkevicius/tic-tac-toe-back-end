@@ -12,4 +12,6 @@ router.delete("/", boardController.deleteAllBoards);
 
 router.get("/winner", boardController.getWinner);
 
+router.get("/seed", boardController.seed);
+
 module.exports = router;

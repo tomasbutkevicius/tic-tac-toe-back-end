@@ -1,5 +1,6 @@
 const Board = require('../db/models/Board');
 const logger = require('../logger/index');
+const seedDB = require('../seed/seed');
 
 exports.getAllBoards = async () => {
     try {
@@ -31,7 +32,7 @@ exports.addBoard = async (req) => {
 
     const { squares, xIsNext, winner, lastAction } = req.body;
     logger.debug("REQ_BODY: " + JSON.stringify(req.body));
-    
+
     if (squares !== undefined && xIsNext !== undefined && winner !== undefined && lastAction !== undefined) {
         const board = new Board({
             squares: req.body.squares,
@@ -72,6 +73,17 @@ exports.getWinner = async () => {
         const winner = getWinnerFromBoard(board);
         logger.debug("Winner: " + winner);
         return getWinnerFromBoard(board);
+    } catch (err) {
+        logger.error(err);
+        return { message: err };
+    }
+}
+
+exports.seed = async () => {
+    logger.info("Seed database called");
+    try {
+        await seedDB();
+        return { message: "database reset with seed" };
     } catch (err) {
         logger.error(err);
         return { message: err };

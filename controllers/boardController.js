@@ -20,3 +20,7 @@ exports.deleteAllBoards = async (req, res) => {
 exports.getWinner = async (req, res) => {
     res.json(await boardService.getWinner());
 }
+
+exports.seed = async (req,res) => {
+    res.json(await boardService.seed())
+}
