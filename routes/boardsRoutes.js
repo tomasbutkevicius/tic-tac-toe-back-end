@@ -10,7 +10,9 @@ router.post("/", boardController.addBoard);
 
 router.delete("/", boardController.deleteAllBoards);
 
-router.get("/winner", boardController.getWinner);
+router.post("/winner", boardController.winner);
+
+router.get("/latest/winner", boardController.getLatestWinner);
 
 router.get("/seed", boardController.seed);
 

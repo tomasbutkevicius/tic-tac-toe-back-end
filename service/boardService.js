@@ -29,29 +29,20 @@ exports.getLatestBoard = async () => {
 
 exports.addBoard = async (req) => {
     logger.info("Add board called");
+    let board;
+    try {
+        board = getBoardFromRequest(req);
+    } catch (err) {
+        return { message: err };
+    }
 
-    const { squares, xIsNext, winner, lastAction } = req.body;
-    logger.debug("REQ_BODY: " + JSON.stringify(req.body));
-
-    if (squares !== undefined && xIsNext !== undefined && winner !== undefined && lastAction !== undefined) {
-        const board = new Board({
-            squares: req.body.squares,
-            xIsNext: req.body.xIsNext,
-            winner: req.body.winner,
-            lastAction: req.body.lastAction
-        });
-
-        try {
-            const savedBoard = await board.save();
-            logger.debug("Saved board: " + JSON.stringify(req.body));
-            return savedBoard;
-        } catch (err) {
-            logger.error(err);
-            return { message: err };
-        }
-    } else {
-        logger.info("Request body is invalid");
-        return { message: "Invalid request body field names" };
+    try {
+        const savedBoard = await board.save();
+        logger.debug("Saved board: " + JSON.stringify(req.body));
+        return savedBoard;
+    } catch (err) {
+        logger.error(err);
+        return { message: err };
     }
 }
 
@@ -66,8 +57,26 @@ exports.deleteAllBoards = async () => {
     }
 }
 
-exports.getWinner = async () => {
+exports.getWinner = async (req) => {
     logger.info("Get winner called");
+    let board;
+    try {
+        board = getBoardFromRequest(req);
+    } catch (err) {
+        return { message: err };
+    }
+    try {
+        const winner = getWinnerFromBoard(board);
+        logger.debug("Winner: " + winner);
+        return getWinnerFromBoard(board);
+    } catch (err) {
+        logger.error(err);
+        return { message: err };
+    }
+}
+
+exports.getLatestWinner = async (req) => {
+    logger.info("Get latest winner called");
     try {
         const board = await this.getLatestBoard();
         const winner = getWinnerFromBoard(board);
@@ -112,4 +121,19 @@ function getWinnerFromBoard(board) {
         }
     }
     return null;
+}
+
+function getBoardFromRequest(req) {
+    const { squares, xIsNext, winner, lastAction } = req.body;
+    logger.debug("REQ_BODY: " + JSON.stringify(req.body));
+
+    if (squares !== undefined && xIsNext !== undefined && winner !== undefined && lastAction !== undefined) {
+        return new Board({
+            squares: req.body.squares,
+            xIsNext: req.body.xIsNext,
+            winner: req.body.winner,
+            lastAction: req.body.lastAction
+        });
+    }
+    throw "Request body is invalid";
 }

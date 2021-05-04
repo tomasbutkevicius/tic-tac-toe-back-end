@@ -17,9 +17,14 @@ exports.deleteAllBoards = async (req, res) => {
     res.json(await boardService.deleteAllBoards());
 }
 
-exports.getWinner = async (req, res) => {
-    res.json(await boardService.getWinner());
+exports.winner = async (req, res) => {
+    res.json(await boardService.getWinner(req));
 }
+
+exports.getLatestWinner = async (req, res) => {
+    res.json(await boardService.getLatestWinner(req));
+}
+
 
 exports.seed = async (req,res) => {
     res.json(await boardService.seed())
