@@ -1,10 +1,14 @@
 const Board = require('../db/models/Board');
+const logger = require('../logger/index');
 
 exports.getAllBoards = async () => {
     try {
+        logger.info("Get all boards called");
         const boards = await Board.find();
+        logger.debug(boards);
         return boards;
     } catch (err) {
+        logger.error(err);
         return { message: err };
     }
 }
@@ -12,17 +16,22 @@ exports.getAllBoards = async () => {
 
 exports.getLatestBoard = async () => {
     try {
+        logger.info("Get latest board called");
         const boards = await Board.find().sort({ _id: -1 }).limit(1);
+        logger.debug(boards[0]);
         return boards[0];
     } catch (err) {
+        logger.error(err);
         return { message: err };
     }
 }
 
 exports.addBoard = async (req) => {
+    logger.info("Add board called");
 
     const { squares, xIsNext, winner, lastAction } = req.body;
-
+    logger.debug("REQ_BODY: " + JSON.stringify(req.body));
+    
     if (squares !== undefined && xIsNext !== undefined && winner !== undefined && lastAction !== undefined) {
         const board = new Board({
             squares: req.body.squares,
@@ -32,29 +41,39 @@ exports.addBoard = async (req) => {
         });
 
         try {
-            return await board.save();
+            const savedBoard = await board.save();
+            logger.debug("Saved board: " + JSON.stringify(req.body));
+            return savedBoard;
         } catch (err) {
+            logger.error(err);
             return { message: err };
         }
     } else {
+        logger.info("Request body is invalid");
         return { message: "Invalid request body field names" };
     }
 }
 
 exports.deleteAllBoards = async () => {
-    try{
+    logger.info("Delete all boards called");
+    try {
         await Board.deleteMany();
         return { message: "Game data is deleted" };
     } catch (err) {
-       return { message: err };
+        logger.error(err);
+        return { message: err };
     }
 }
 
 exports.getWinner = async () => {
+    logger.info("Get winner called");
     try {
         const board = await this.getLatestBoard();
+        const winner = getWinnerFromBoard(board);
+        logger.debug("Winner: " + winner);
         return getWinnerFromBoard(board);
     } catch (err) {
+        logger.error(err);
         return { message: err };
     }
 }
@@ -82,3 +101,11 @@ function getWinnerFromBoard(board) {
     }
     return null;
 }
+
+
+//Logs for
+// error
+// warn
+// info
+// verbose (detailed info, every event (detail debug > detail verbose))
+// debug (detailed info, stack traces, input, output, special messsages for devs)
